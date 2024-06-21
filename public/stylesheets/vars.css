@@ -1,0 +1,22 @@
+:root {
+	--section-mb: 120px;
+	--section-title-h1: 68px;
+}
+
+@media screen and (max-width: 1500px) {
+	:root {
+		--section-mb: 100px;
+	}
+}
+
+@media screen and (max-width: 1280px) {
+	:root {
+		--section-mb: 80px;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	:root {
+		--section-mb: 60px;
+	}
+}
