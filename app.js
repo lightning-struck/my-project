@@ -9,7 +9,7 @@ var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
 var conceptRouter = require('./routes/concept')
 
-
+const urlencodedParser = express.urlencoded({ extended: false })
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -37,12 +37,16 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
 	// set locals, only providing error in development
 	res.locals.message = err.message
-	res.locals.error = req.app.get('env') === 'development' ? err : {}
+	res.locals.error = {
+		status: err.status || 500,
+		stack: err.stack,
+	}
 
 	// render the error page
-	res.status(err.status || 500)
+	res.status(res.locals.error.status)
 	res.render('error')
 })
+
 app.engine(
 	'.hbs',
 	exphbs.engine({
@@ -50,8 +54,17 @@ app.engine(
 		defaultLayout: 'layout',
 		layoutsDir: path.join(__dirname, 'views/layouts'),
 		partialsDir: path.join(__dirname, 'views/partials'),
+		allowProtoPropertiesByDefault: true,
 	})
 )
+
+app.get('/', function (_, response) {
+	response.sendFile(__dirname + '/footer.hbs')
+})
+app.post('/', (request, response) => {
+	console.log(request.body)
+	response.sendStatus(200)
+})
 
 module.exports = app
 app.listen(4000)

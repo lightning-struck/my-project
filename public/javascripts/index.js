@@ -79,7 +79,10 @@ function isEmailValid(value) {
 const email = document.querySelector('.contact_input')
 const email_btn = document.querySelector('.contact_btn')
 const email_error = document.querySelector('.email_error')
-
+const spinner = document.querySelector('.spinner-loader')
+const modal = document.querySelector('.modal')
+const modalContent = document.querySelector('.modal_layout-content')
+const modalCloseBtns = document.querySelectorAll('.modal_close-btn')
 if (email && email_btn && email_error) {
 	const isEmailValid = value => {
 		return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)
@@ -108,15 +111,26 @@ if (email && email_btn && email_error) {
 	email.addEventListener('input', () => {
 		validateEmail(email.value)
 	})
+	modalCloseBtns.forEach(btn => {
+		btn.addEventListener('click', () => {
+			modalContent.classList.remove('modal_layout-content-active')
+			setTimeout(() => {
+				modal.classList.remove('modal_active')
+				body.style.overflow = 'auto'
+			}, 400)
+		})
+	})
 	const handleSubmit = async event => {
+		body.style.overflow = 'hidden'
 		event.preventDefault()
-
+		email.value = ''
+		spinner.classList.add('spinner-loader-visible')
 		const formData = {
 			email: email.value,
 		}
 
 		try {
-			const response = await fetch('/concept', {
+			const response = await fetch('/', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -125,7 +139,13 @@ if (email && email_btn && email_error) {
 			})
 
 			if (response.ok) {
-				console.log('Data sent successfully')
+				setTimeout(() => {
+					spinner.classList.remove('spinner-loader-visible')
+					modal.classList.add('modal_active')
+					setTimeout(() => {
+						modalContent.classList.add('modal_layout-content-active')
+					}, 300)
+				}, 1000)
 			} else {
 				console.error('Error sending data:', response.status)
 			}
