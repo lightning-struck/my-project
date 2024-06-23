@@ -1,26 +1,23 @@
-<section class='main_banner section_mb'>
+<section class='main_banner section_mb' id='top'>
 	<div class='main_banner_image'>
 		<div class='slider_banner'>
 			<div class='slider_banner-slide'>
 				<div class='container'>
 					<div class='banner_description'>
 						<h2 class='banner_description_title'>Новый дом №3</h2>
-						<p class='banner_description_text'>Старт продаж дома №3. Успей
+						<p class='banner_description_text'>Старт продаж дома №3. Успейте
 							купить, пока действует скидка на каждую квартиру в размере 200 000
 							рублей!</p>
 						<button class='button'>Узнать больше</button>
 					</div>
 				</div>
-				<img
-					class='slider_banner_image'
-					src='/images/s_1.jpg'
-					alt='Слайд'
-				/></div>
+				<img class='slider_banner_image' src='/images/s_1.jpg' alt='Слайд' />
+			</div>
 			<div class='slider_banner-slide'>
 				<div class='container'>
 					<div class='banner_description'>
 						<h2 class='banner_description_title'>Новый дом №10</h2>
-						<p class='banner_description_text'>Старт продаж дома №10. Успей
+						<p class='banner_description_text'>Старт продаж дома №10. Успейте
 							купить, пока действует скидка на каждую квартиру в размере 740 000
 							рублей!</p>
 						<button class='button'>Узнать больше</button>
@@ -35,7 +32,7 @@
 				<div class='container'>
 					<div class='banner_description'>
 						<h2 class='banner_description_title'>Новый дом №5</h2>
-						<p class='banner_description_text'>Старт продаж дома №5. Успей
+						<p class='banner_description_text'>Старт продаж дома №5. Успейте
 							купить, пока действует скидка на каждую квартиру в размере 500 000
 							рублей!</p>
 						<button class='button'>Узнать больше</button>
@@ -51,31 +48,18 @@
 		<div class='swiper-pagination'></div>
 	</div>
 </section>
-
-<header class='header'>
-	<nav class='header_wrapper'>
-		<ul class='container header_navigation'>
-			<a href=''><li class='header_navigation-item'>Главная</li></a>
-			<a href=''><li class='header_navigation-item'>Концепция ЖК</li></a>
-			<a href=''><li class='header_navigation-item'>Отзывы</li></a>
-			<a href=''><li class='header_navigation-item'>О нас</li></a>
-			<a href=''><li class='header_navigation-item'>Личный кабинет</li></a>
-		</ul>
-	</nav>
-</header>
-<section class='section_mb'>
+<section class='section_mb' id='about'>
 	<div class='content_container'>
 		<div class='wrapper_about'>
 			<div class='wrapper_about-text'>
 				<div class='wrapper_about-text-title'>
-					<h1 class='section-title'>Мы повышаем красоту вашего дома</h1>
+					<h1 class='section-title'>«Формат»<br /> жилой комплекс</h1>
 				</div>
 				<div class='wrapper_about-info'>
-					<h4>Мы создали собственную Методологию цифровой трансформации.</h4>
-					<p>Покупка дома - это в буквальном смысле большое дело. Скорее всего,
-						это самое крупное финансовое предприятие в вашей жизни. Даже с
-						учетом всех программ низких первоначальных взносов, доступных для
-						начинающих покупателей, это немалый подвиг.</p>
+					<h4>Это не просто жилье, это целая философия жизни.</h4>
+					<p>ЖК «Формат» - новый современный жилой комплекс, расположенный в
+						самом сердце города. Мы создаем не просто дома, а целую экосистему
+						для комфортной и счастливой жизни.</p>
 				</div>
 			</div>
 			<div class='wrapper_about-pictures'>
@@ -85,31 +69,57 @@
 
 					<img class='pic-right' src='/images/pic-right.jpg' alt='' />
 
-					<div class='pic-center picture_about-wrapper'><div
-							class='counter_wrapper'
-						>
+					<div
+						class='pic-center picture_about-wrapper wrapper-move'
+						data-speed='1'
+					>
+						<div class='counter_wrapper'>
 							<h3 class='counter'>0</h3>
 							<span class='counter'>k</span>
-						</div></div>
+						</div>
+					</div>
 				</div>
 			</div>
 
 		</div>
 	</div>
 </section>
-<section class='section_mb section_gallery'>
+<section class='section_mb' class='mistakes-section'>
+	<div class='mistakes-container'>
+		<div class='wrapper-move mistakes-wrapper' data-speed='1'>
+			<div class='mistakes-wrapper-text'>
+				<h3>Крупнейшие ошибки первого покупателя жилья</h3>
+				<p>Приобретение первой собственной квартиры - это волнующее и
+					ответственное событие в жизни каждого человека. Однако зачастую из-за
+					недостатка опыта и знаний, первые покупатели жилья совершают ошибки,
+					которые в будущем могут обойтись им очень дорого.
+				</p>
+				<button class='button' id='download-btn'>Скачать</button>
+			</div>
+		</div>
+	</div>
+</section>
+<section class='section_mb section_gallery' id='gallery'>
 	<div class='container gallery_container'>
 		<div class='wrapper_gallery'>
 
 			<div class='wrapper_gallery-scroller'>
 				<div class='image-top gallery-scroller-img'>
-					<img class='gallery-image-item' src='/images/pic-left.jpg' alt='' />
+					<img
+						class='gallery-image-item'
+						src='/images/pic-orange1.jpg'
+						alt=''
+					/>
 				</div>
 				<div class='image-top gallery-scroller-img'>
-					<img class='gallery-image-item' src='/images/pic-right.jpg' alt='' />
+					<img
+						class='gallery-image-item'
+						src='/images/pic-orange2.jpg'
+						alt=''
+					/>
 				</div>
 				<div class='image-top gallery-scroller-img'>
-					<img class='gallery-image-item' src='/images/s_1.jpg' alt='' />
+					<img class='gallery-image-item' src='/images/pic-orange.jpg' alt='' />
 				</div>
 				<div class='gallery-scroller-img'>
 					<img class='gallery-image-item' src='/images/s_2.jpg' alt='' />
@@ -149,6 +159,17 @@
 
 	</div>
 </section>
+<section class='section_mb' id='map-section'>
+	<div class='container'>
+		<div class='map-wrapper'>
+			<div class='map' id='map'>
+
+			</div>
+		</div>
+
+	</div>
+
+</section>
 <section class='section_mb'>
 	<div class='container informations_container'>
 		<div class='wrapper_informations'>
@@ -161,19 +182,18 @@
 					</h3>
 				</div>
 				<div class='wrapper_informations-left-block-image'>
-					<img src='/images/s_1.jpg' alt='' />
+					<img src='/images/pic-orange.jpg' alt='' />
 				</div>
 			</div>
 			<div class='wrapper_informations-right-block'>
 				<div class='wrapper_informations-right-block-text'>
 					<h4>
-						Ut enim ad minim veniam, quis nostrud exercitation ullamco Laboris
-						nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-						reprehenderit in voluptate velit esse cillum
+						Наш приоритет - качество. Мы тщательно продумываем каждую деталь, от
+						планировок квартир до инфраструктуры всего комплекса.
 					</h4>
 				</div>
 				<div class='wrapper_informations-right-block-image'>
-					<img src='/images/s_2.jpg' alt='' />
+					<img src='/images/pic-orange2.jpg' alt='' />
 				</div>
 				<button class='button' role='button'>
 					Узнать больше

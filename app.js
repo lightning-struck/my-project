@@ -11,6 +11,11 @@ var conceptRouter = require('./routes/concept')
 
 const urlencodedParser = express.urlencoded({ extended: false })
 
+const file = __dirname + '/download/mistakes.txt'
+app.get('/download', (req, res) => {
+	res.download(file)
+})
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')

@@ -156,3 +156,124 @@ if (email && email_btn && email_error) {
 
 	email_btn.addEventListener('click', handleSubmit)
 }
+ymaps.ready(function () {
+	var map = new ymaps.Map('map', {
+		center: [43.123946, 131.904924],
+		zoom: 18,
+	})
+
+	if (map) {
+		ymaps.modules.require(
+			['Placemark', 'Circle'],
+			function (Placemark, Circle) {
+				var placemark = new Placemark([55.37, 35.45])
+			}
+		)
+		map.controls.remove('geolocationControl') // удаляем геолокацию
+		map.controls.remove('searchControl') // удаляем поиск
+		map.controls.remove('trafficControl') // удаляем контроль трафика
+		map.controls.remove('typeSelector') // удаляем тип
+		map.controls.remove('fullscreenControl') // удаляем кнопку перехода в полноэкранный режим
+
+		map.controls.remove('rulerControl') // удаляем контрол правил
+		map.behaviors.disable(['scrollZoom']) // отключаем скролл карты (опционально)
+	}
+})
+document.addEventListener('mousemove', parallax)
+function parallax(e) {
+	this.querySelectorAll('.wrapper-move').forEach(wrapper => {
+		const speed = wrapper.getAttribute('data-speed')
+
+		const x = (window.innerWidth - e.pageX * speed) / 100
+		const y = (window.innerHeight - e.pageY * speed) / 100
+
+		wrapper.style.transform = `translateX(${x}px) translateY(${y}px)`
+	})
+}
+// скачивание файла
+document.addEventListener('DOMContentLoaded', () => {
+	const downloadButton = document.getElementById('download-btn')
+
+	downloadButton.addEventListener('click', event => {
+		event.preventDefault() // Отменяем стандартное поведение ссылки
+
+		// Проверяем, был ли файл скачан ранее
+		if (localStorage.getItem('fileDownloaded')) {
+			if (confirm('Вы уже скачивали файл. Скачать еще раз?')) {
+				downloadFile()
+			}
+		} else {
+			downloadFile()
+		}
+	})
+
+	function downloadFile() {
+		fetch('/')
+			.then(response => response.blob())
+			.then(blob => {
+				const url = window.URL.createObjectURL(blob)
+				const a = document.createElement('a')
+				a.href = url
+				a.download = 'mistakes.txt'
+				document.body.appendChild(a)
+				a.click()
+				document.body.removeChild(a)
+				window.URL.revokeObjectURL(url)
+
+				// Отмечаем, что файл был скачан
+				localStorage.setItem('fileDownloaded', true)
+			})
+			.catch(error => {
+				console.error('Ошибка при загрузке файла:', error)
+			})
+	}
+})
+
+// document.addEventListener('DOMContentLoaded', () => {
+// 	const links = document.querySelectorAll('a[href*="#map-section"]')
+
+// 	for (let link of links) {
+// 		link.addEventListener('click', function (event) {
+// 			event.preventDefault()
+// 			const blockID = link.getAttribute('href')
+// 			document.querySelector('' + blockID).scrollIntoView({
+// 				behavior: 'smooth',
+// 				block: 'center',
+// 			})
+// 		})
+// 	}
+// })
+document.addEventListener('DOMContentLoaded', () => {
+	const links = document.querySelectorAll('a[href*="#"]')
+
+	for (let link of links) {
+		link.addEventListener('click', function (event) {
+			event.preventDefault()
+			const blockID = link.getAttribute('href')
+			const block = document.querySelector(blockID)
+
+			if (block) {
+				let block_position
+
+				switch (blockID) {
+					case '#about':
+						block_position = 'end'
+						break
+					case '#gallery':
+						block_position = 'center'
+						break
+					case '#map-section':
+						block_position = 'center'
+						break
+					default:
+						block_position = 'start'
+				}
+
+				block.scrollIntoView({
+					behavior: 'smooth',
+					block: block_position,
+				})
+			}
+		})
+	}
+})
