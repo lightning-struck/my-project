@@ -4,7 +4,7 @@ var router = express.Router()
 /* GET users listing. */
 
 router.get('/', function (req, res, next) {
-	res.render('layouts', {
+	res.render('estimate', {
 		title: 'Отзывы наших клиентов',
 	})
 })

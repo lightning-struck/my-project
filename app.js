@@ -7,7 +7,7 @@ var app = express()
 var exphbs = require('express-handlebars')
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
-var conceptRouter = require('./routes/concept')
+var assessmentRouter = require('./routes/assessment')
 
 const urlencodedParser = express.urlencoded({ extended: false })
 
@@ -27,11 +27,10 @@ app.use(cookieParser())
 
 app.use(express.static(path.join(__dirname, 'public')))
 
+//router
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
-
-app.use('/', conceptRouter)
-app.use('/concept', conceptRouter)
+app.use('/estimate', assessmentRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -51,12 +50,14 @@ app.use(function (err, req, res, next) {
 	res.status(res.locals.error.status)
 	res.render('error')
 })
-
+app.get('/estimate', (_, response) => {
+	res.render('estimate', { layout: 'assessment' })
+})
 app.engine(
 	'.hbs',
 	exphbs.engine({
 		extname: 'hbs',
-		defaultLayout: 'layout',
+		defaultLayout: 'reviews',
 		layoutsDir: path.join(__dirname, 'views/layouts'),
 		partialsDir: path.join(__dirname, 'views/partials'),
 		allowProtoPropertiesByDefault: true,
@@ -66,6 +67,7 @@ app.engine(
 app.get('/', function (_, response) {
 	response.sendFile(__dirname + '/footer.hbs')
 })
+
 app.post('/', (request, response) => {
 	console.log(request.body)
 	response.sendStatus(200)
