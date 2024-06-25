@@ -14,6 +14,11 @@ const swiper = new Swiper('.main_banner_image', {
 	slideClass: 'slider_banner-slide',
 	speed: 300,
 
+	navigation: {
+		nextEl: '.swiper-button-next',
+		prevEl: '.swiper-button-prev',
+	},
+
 	autoplay: {
 		delay: 7000,
 	},
@@ -32,4 +37,20 @@ const swiper = new Swiper('.main_banner_image', {
 	// scrollbar: {
 	// 	el: '.swiper-scrollbar',
 	// },
+})
+const swiperEstimate = new Swiper('.swiper', {
+	// Optional parameters
+	direction: 'vertical',
+
+	loop: true,
+	wrapperClass: 'swiper-wrapper',
+	slideClass: 'swiper-slide',
+	speed: 300,
+	// effect: flip,
+	// limitRotation: true,
+	// slideShadows: true,
+	autoplay: {
+		delay: 10000,
+	},
+	// // If we need pagination
 })

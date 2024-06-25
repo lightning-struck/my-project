@@ -18,8 +18,9 @@ function outNum(num, elem) {
 			n = num
 			clearInterval(interval)
 		}
-
-		e.innerHTML = Math.floor(n)
+		if (e) {
+			e.innerHTML = Math.floor(n)
+		}
 	}, intervalDelay)
 }
 window.addEventListener('scroll', () => {
@@ -50,7 +51,7 @@ const galleryImages = document.querySelectorAll('.gallery-image-item')
 const popup = document.querySelector('.pop-up')
 const popupImage = document.querySelector('.popup-img')
 const popupClose = document.querySelector('.popup-close')
-if (galleryImages) {
+if (popup) {
 	popupClose.addEventListener('click', () => {
 		popup.classList.remove('popup_active')
 		body.style.overflow = 'auto'
@@ -156,29 +157,32 @@ if (email && email_btn && email_error) {
 
 	email_btn.addEventListener('click', handleSubmit)
 }
-ymaps.ready(function () {
-	var map = new ymaps.Map('map', {
-		center: [43.123946, 131.904924],
-		zoom: 18,
+const map = document.getElementById('map')
+if (map) {
+	ymaps.ready(function () {
+		var map = new ymaps.Map('map', {
+			center: [43.123946, 131.904924],
+			zoom: 18,
+		})
+
+		if (map) {
+			ymaps.modules.require(
+				['Placemark', 'Circle'],
+				function (Placemark, Circle) {
+					var placemark = new Placemark([55.37, 35.45])
+				}
+			)
+			map.controls.remove('geolocationControl') // удаляем геолокацию
+			map.controls.remove('searchControl') // удаляем поиск
+			map.controls.remove('trafficControl') // удаляем контроль трафика
+			map.controls.remove('typeSelector') // удаляем тип
+			map.controls.remove('fullscreenControl') // удаляем кнопку перехода в полноэкранный режим
+
+			map.controls.remove('rulerControl') // удаляем контрол правил
+			map.behaviors.disable(['scrollZoom']) // отключаем скролл карты (опционально)
+		}
 	})
-
-	if (map) {
-		ymaps.modules.require(
-			['Placemark', 'Circle'],
-			function (Placemark, Circle) {
-				var placemark = new Placemark([55.37, 35.45])
-			}
-		)
-		map.controls.remove('geolocationControl') // удаляем геолокацию
-		map.controls.remove('searchControl') // удаляем поиск
-		map.controls.remove('trafficControl') // удаляем контроль трафика
-		map.controls.remove('typeSelector') // удаляем тип
-		map.controls.remove('fullscreenControl') // удаляем кнопку перехода в полноэкранный режим
-
-		map.controls.remove('rulerControl') // удаляем контрол правил
-		map.behaviors.disable(['scrollZoom']) // отключаем скролл карты (опционально)
-	}
-})
+}
 document.addEventListener('mousemove', parallax)
 function parallax(e) {
 	this.querySelectorAll('.wrapper-move').forEach(wrapper => {
@@ -191,21 +195,23 @@ function parallax(e) {
 	})
 }
 // скачивание файла
+
 document.addEventListener('DOMContentLoaded', () => {
 	const downloadButton = document.getElementById('download-btn')
+	if (downloadButton) {
+		downloadButton.addEventListener('click', event => {
+			event.preventDefault() // Отменяем стандартное поведение ссылки
 
-	downloadButton.addEventListener('click', event => {
-		event.preventDefault() // Отменяем стандартное поведение ссылки
-
-		// Проверяем, был ли файл скачан ранее
-		if (localStorage.getItem('fileDownloaded')) {
-			if (confirm('Вы уже скачивали файл. Скачать еще раз?')) {
+			// Проверяем, был ли файл скачан ранее
+			if (localStorage.getItem('fileDownloaded')) {
+				if (confirm('Вы уже скачивали файл. Скачать еще раз?')) {
+					downloadFile()
+				}
+			} else {
 				downloadFile()
 			}
-		} else {
-			downloadFile()
-		}
-	})
+		})
+	}
 
 	function downloadFile() {
 		fetch('/')
@@ -265,6 +271,12 @@ document.addEventListener('DOMContentLoaded', () => {
 					case '#map-section':
 						block_position = 'center'
 						break
+					case '#mistakes':
+						block_position = 'center'
+						break
+					case '#furniture':
+						block_position = 'center'
+						break
 					default:
 						block_position = 'start'
 				}
@@ -275,5 +287,97 @@ document.addEventListener('DOMContentLoaded', () => {
 				})
 			}
 		})
+	}
+})
+const modalOverlay = document.querySelector('.overlay')
+const overlayBtns = document.querySelectorAll('.modal-btn')
+const modalWrapper = document.querySelector('.popup_modal-wrapper')
+
+const popupShow = () => {
+	modalWrapper.classList.remove('popup_modal-wrapper_hidden')
+	modalOverlay.classList.add('overlay_show')
+	body.classList.add('body_fixed')
+	body.style.overflow = 'hidden'
+}
+
+overlayBtns.forEach(btn => {
+	btn.addEventListener('click', popupShow)
+})
+
+modalCloseBtns.forEach(btn => {
+	btn.addEventListener('click', () => {
+		modalOverlay.classList.remove('overlay_show')
+		body.classList.remove('body_fixed')
+		body.style.overflow = 'auto'
+	})
+})
+const emailInput = document.querySelector('.email-input')
+const nameInput = document.querySelector('.name-input')
+const phoneInput = document.querySelector('.phone-input')
+const dateInput = document.querySelector('.date-input')
+const handleSubmitFeedback = async event => {
+	body.style.overflow = 'hidden'
+
+	email.value = ''
+	spinner.classList.add('spinner-loader-visible')
+	const formData = {
+		email: emailInput.value,
+		name: nameInput.value,
+		phoneInput: phoneInput.value,
+		dateInput: dateInput.value,
+	}
+
+	try {
+		const response = await fetch('/', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(formData),
+		})
+
+		if (response.ok) {
+			modalWrapper.classList.add('popup_modal-wrapper_hidden')
+			setTimeout(() => {
+				spinner.classList.remove('spinner-loader-visible')
+				modalOverlay.classList.remove('overlay_show')
+				modal.classList.add('modal_active')
+				setTimeout(() => {
+					modalContent.classList.add('modal_layout-content-active')
+				}, 300)
+			}, 1000)
+		} else {
+			console.error('Error sending data:', response.status)
+		}
+	} catch (error) {
+		console.error('Error:', error)
+	}
+}
+const feedback_btn = document.querySelector('.feedback-btn')
+feedback_btn.addEventListener('click', () => {
+	if (nameInput.value === '') {
+		nameInput.classList.add('error-input')
+	}
+	if (emailInput.value === '') {
+		emailInput.classList.add('error-input')
+	}
+	if (phoneInput.value === '') {
+		phoneInput.classList.add('error-input')
+	}
+	if (dateInput.value === '') {
+		dateInput.classList.add('error-input')
+	}
+	if (
+		dateInput.value != '' &&
+		emailInput.value != '' &&
+		phoneInput.value != '' &&
+		dateInput.value != ''
+	) {
+		handleSubmitFeedback()
+	} else {
+		// phoneInput.classList.remove('error-input')
+		// nameInput.classList.remove('error-input')
+		// emailInput.classList.remove('error-input')
+		// dateInput.classList.remove('error-input')
 	}
 })
