@@ -357,15 +357,23 @@ const feedback_btn = document.querySelector('.feedback-btn')
 feedback_btn.addEventListener('click', () => {
 	if (nameInput.value === '') {
 		nameInput.classList.add('error-input')
+	} else {
+		nameInput.classList.remove('error-input')
 	}
 	if (emailInput.value === '') {
 		emailInput.classList.add('error-input')
+	} else {
+		emailInput.classList.remove('error-input')
 	}
 	if (phoneInput.value === '') {
 		phoneInput.classList.add('error-input')
+	} else {
+		phoneInput.classList.remove('error-input')
 	}
 	if (dateInput.value === '') {
 		dateInput.classList.add('error-input')
+	} else {
+		dateInput.classList.remove('error-input')
 	}
 	if (
 		dateInput.value != '' &&
@@ -374,10 +382,193 @@ feedback_btn.addEventListener('click', () => {
 		dateInput.value != ''
 	) {
 		handleSubmitFeedback()
-	} else {
-		// phoneInput.classList.remove('error-input')
-		// nameInput.classList.remove('error-input')
-		// emailInput.classList.remove('error-input')
-		// dateInput.classList.remove('error-input')
 	}
+})
+
+const tl = gsap.timeline()
+
+gsap.registerPlugin(ScrollTrigger)
+
+gsap.from('.gsap-banner', {
+	opacity: 0,
+	delay: 1,
+	y: 30,
+})
+
+gsap.from('.gsap-logo', {
+	opacity: 0,
+	delay: 0.5,
+	y: 30,
+})
+gsap.from('.gsap-nav-item1', {
+	opacity: 0,
+	delay: 0.6,
+	x: -30,
+})
+gsap.from('.gsap-nav-item2', {
+	opacity: 0,
+	delay: 0.7,
+	x: -30,
+})
+
+// Инициализация GSAP
+gsap.registerPlugin(ScrollTrigger)
+
+// Настройка анимации для заголовка и текста
+const aboutTextTimeline = gsap.timeline({
+	scrollTrigger: {
+		trigger: '.wrapper_about-text',
+		start: 'top 90%', // Появление раньше на 20%
+		end: 'bottom 60%', // Исчезновение раньше на 20%
+		scrub: true,
+		toggleActions: 'play none none reverse',
+	},
+})
+
+aboutTextTimeline
+	.from('.wrapper_about-text-title ', {
+		y: 50,
+		opacity: 0,
+		duration: 1,
+	})
+	.from(
+		'.wrapper_about-info',
+		{
+			y: 50,
+			opacity: 0,
+			duration: 1,
+		},
+		'-=0.5'
+	)
+
+// Настройка анимации для изображений
+const aboutImagesTimeline = gsap.timeline({
+	scrollTrigger: {
+		trigger: '.wrappper_images',
+		start: 'top 80%', // Появление раньше на 20%
+		end: 'bottom 70%', // Исчезновение раньше на 20%
+		scrub: true,
+		toggleActions: 'play none none reverse',
+	},
+})
+
+aboutImagesTimeline
+	.from('.pic-left', { x: -100, opacity: 0, duration: 1 })
+	.from('.pic-right', { x: 100, opacity: 0, duration: 1 }, '-=0.5')
+	.from('.pic-center', { scale: 0.8, opacity: 0, duration: 1 }, '-=0.5')
+
+// Настройка анимации для счетчика
+const counterWrapper = document.querySelector('.counter_wrapper')
+const counterElement = document.querySelector('.counter')
+
+gsap.to(counterElement, {
+	scrollTrigger: {
+		trigger: counterWrapper,
+		start: 'top 80%', // Появление раньше на 20%
+		end: 'bottom 60%', // Исчезновение раньше на 20%
+		scrub: true,
+	},
+
+	duration: 2,
+	ease: 'power1.inOut',
+})
+
+// Define the animation
+gsap.to('.gsap-info-block', {
+	scrollTrigger: {
+		trigger: '.informations_container',
+		start: 'top center',
+		end: 'bottom center',
+		scrub: true,
+	},
+	x: '-20%',
+	opacity: 1,
+	duration: 1,
+})
+
+gsap.to('.gsap-right-block', {
+	scrollTrigger: {
+		trigger: '.informations_container',
+		start: 'top center',
+		end: 'bottom center',
+		scrub: true,
+	},
+	x: '20%',
+	opacity: 1,
+	duration: 1,
+})
+
+gsap.from('.gsap-btn', {
+	scrollTrigger: {
+		trigger: '.informations_container',
+		start: 'top center',
+		end: 'bottom center',
+		scrub: true,
+	},
+	y: 50,
+	opacity: 0,
+	duration: 1,
+})
+
+// Получаем элементы, которые будут анимироваться
+const footerInfo = document.querySelector('.wrapper_footer-information')
+const footerText = document.querySelector('.wrapper_footer-text')
+const emailInputt = document.querySelector('.contact_input')
+const emailError = document.querySelector('.email_error')
+const contactBtn = document.querySelector('.contact_btn')
+
+// Анимация появления информации в футере
+gsap.from(footerInfo, {
+	y: 50,
+	opacity: 0,
+	duration: 1,
+	delay: 0.5,
+	scrollTrigger: {
+		trigger: footerInfo,
+		start: 'top 80%',
+		end: 'bottom 80%',
+		scrub: true,
+	},
+})
+
+// Анимация появления текста в футере
+gsap.from(footerText, {
+	y: 50,
+	opacity: 0,
+	duration: 1,
+	delay: 0.5,
+	scrollTrigger: {
+		trigger: footerText,
+		start: 'top 80%',
+		end: 'bottom 90%',
+		scrub: true,
+	},
+})
+
+// Анимация ввода email
+gsap.from(emailInputt, {
+	x: -50,
+	opacity: 0,
+	duration: 1,
+	delay: 1,
+	scrollTrigger: {
+		trigger: footerInfo,
+		start: 'top 70%',
+		end: 'bottom 95%',
+		scrub: true,
+	},
+})
+
+// Анимация кнопки "Записаться"
+gsap.from(contactBtn, {
+	x: -50,
+	opacity: 0,
+	duration: 1,
+	delay: 1,
+	scrollTrigger: {
+		trigger: footerInfo,
+		start: 'top 70%',
+		end: 'bottom 95%',
+		scrub: true,
+	},
 })
